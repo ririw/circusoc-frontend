@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body ng-app="CircusSite">
+
+<div ng-controller="TabNav">
+
+    <md-tabs selected="selectedIndex" center class="circus-yellow">
+        <md-tab label="Home"></md-tab>
+        <md-tab label="Hire"></md-tab>
+        <md-tab label="Artists"></md-tab>
+        <md-tab label="Gigs"></md-tab>
+        <md-tab label="Join"></md-tab>
+        <md-tab label="Contact"></md-tab>
+    </md-tabs>
+
+    <div class="slide-animate-container">
+        <div class="slide-animate" ng-include="page()"></div>
+    </div>
+
+
+</div>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/hammerjs/hammer.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script>
+
+    // Include app dependency on ngMaterial
+
+    var app = angular.module( 'CircusSite', [ 'ngMaterial' ] )
+        .controller("TabNav", ['$scope', function($scope, $rootScope){
+            $scope.selectedIndex = 0;
+            $scope.pages = {
+                0: "circus-main/circus-main.html",
+                1: "circus-contact/circus-hire.html",
+                2: "circus-contact/circus-artists.html",
+                3: "circus-contact/circus-gigs.html",
+                4: "circus-contact/circus-join.html",
+                5: "circus-contact/circus-contact.html"
+            };
+            $scope.page = function() {
+                return $scope.pages[$scope.selectedIndex];
+            }
+
+        }])
+        .run(function($rootScope, $templateCache) {
+                $templateCache.removeAll();
+                console.log("All removed")
+        });
+
+</script>
+</body>
+</html>
+
+
+

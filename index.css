@@ -1,0 +1,40 @@
+.centertext {
+    text-align: center;
+}
+
+.circus-yellow {
+    background: #fbb03b;
+    color: white;
+}
+
+.circus-yellow > .tabs-header {
+    background: #fbb03b;
+    color: white;
+}
+
+.circus-yellow md-tab {
+    background: #fbb03b;
+    color: #FFEED4;
+}
+
+.circus-yellow md-tab.active {
+    background: #fbb03b;
+    color: white;
+}
+
+.circus-logo {
+    width: 100%;
+    max-width: 600px;
+}
+
+.circus-card {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    text-align: justify;
+}
+
+.pad-inner > img, a {
+    margin: 5px;
+}
