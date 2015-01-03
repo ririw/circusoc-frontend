@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="circus-contact/circus-contact.css">
 
-<md-content class="md-content-padding circus-contact">
+
+<md-content class="md-content-padding circus-contact" ng-controller="ContactController">
     <md-card class="circus-card">
         <div class="centertext">
             <img src="img/logo.png"
@@ -9,8 +10,10 @@
         </div>
         <div id="circusbrief">
             <h1>Contact Us</h1>
-            <div>
-                <md-button class="circus-contact-hirebutton">Hire us</md-button>
+            <div class="centertext">
+                <md-button class="circus-contact-hirebutton" ng-click="gohire()">
+                        Hire us
+                </md-button>
             </div>
             <div class="contactbox">
                 <md-card class="circus-contact-card">

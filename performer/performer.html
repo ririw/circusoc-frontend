@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="performer/performer.css">
+
+<div class="performer">
+    <div class="heading circus-yellow">
+        <div class="performerinfo">
+            <div class="skills">Skills:
+                <ul>
+                    <li ng-repeat="skill in performer.skills">{{skill}}</li>
+                </ul>
+            </div>
+        </div>
+        <img src="{{profile_picture()}}" class="image" alt="image of {{performer.name}}"/>
+    </div>
+    <div class="picture" style="background-image: url({{current_image()}})">
+        <div class="rightbutton" ng-click="next_image()"></div>
+        <div class="leftbutton" ng-click="prev_image()"></div>
+    </div>
+    <div class="hire">
+        <md-button class="hirebutton circus-yellow" ng-click="gohire()">
+            Hire {{performer.name}}!
+        </md-button>
+    </div>
+</div>

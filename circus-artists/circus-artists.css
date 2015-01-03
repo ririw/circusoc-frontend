@@ -1,0 +1,16 @@
+.circus-artists .circus-card {
+    min-height: 800px;
+    max-width: 1150px;
+}
+/*
+
+.circus-artists .performer {
+    width: 340px;
+    height: 400px;
+    background: none repeat scroll 0% 0% #45b797;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin: 5px;
+}
+
+*/

@@ -6,9 +6,11 @@
 }
 .circus-contact .circus-contact-hirebutton {
     width: 150px;
-    height: 60px;
+    height: 40px;
     background-color: #fbb03b;
     color: white;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .circus-contact .circus-contact-hirebutton :hover {

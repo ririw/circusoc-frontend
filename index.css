@@ -7,6 +7,10 @@
     color: white;
 }
 
+.circus-yellow md-button :hover {
+    background-color: #FFD087;
+}
+
 .circus-yellow > .tabs-header {
     background: #fbb03b;
     color: white;
@@ -20,6 +24,14 @@
 .circus-yellow md-tab.active {
     background: #fbb03b;
     color: white;
+}
+
+
+.circus-yellow .md-ripple-container{
+    color: #45b797;
+}
+.circus-yellow .md-ripple-container{
+    color: #45b797;
 }
 
 .circus-logo {
@@ -37,4 +49,14 @@
 
 .pad-inner > img, a {
     margin: 5px;
+}
+
+md-tab a {
+    color: white;
+    text-decoration: none;
+}
+
+md-button a {
+    color: white;
+    text-decoration: none;
 }

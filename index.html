@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="index.css">
@@ -8,54 +9,25 @@
 <body ng-app="CircusSite">
 
 <div ng-controller="TabNav">
-
-    <md-tabs selected="selectedIndex" center class="circus-yellow">
-        <md-tab label="Home"></md-tab>
-        <md-tab label="Hire"></md-tab>
-        <md-tab label="Artists"></md-tab>
-        <md-tab label="Gigs"></md-tab>
-        <md-tab label="Join"></md-tab>
-        <md-tab label="Contact"></md-tab>
+    <md-tabs selected="selectedIndex" center class="circus-yellow" >
+        <md-tab ng-repeat="tab in tabs"
+                on-select="setlocation(tab)"
+                label="{{tab.title}}">
+        </md-tab>
     </md-tabs>
-
-    <div class="slide-animate-container">
-        <div class="slide-animate" ng-include="page()"></div>
-    </div>
-
-
 </div>
 
+<ng-view></ng-view>
 <script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-aria/angular-aria.js"></script>
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/hammerjs/hammer.js"></script>
 <script src="bower_components/angular-material/angular-material.js"></script>
-<script>
-
-    // Include app dependency on ngMaterial
-
-    var app = angular.module( 'CircusSite', [ 'ngMaterial' ] )
-        .controller("TabNav", ['$scope', function($scope, $rootScope){
-            $scope.selectedIndex = 0;
-            $scope.pages = {
-                0: "circus-main/circus-main.html",
-                1: "circus-contact/circus-hire.html",
-                2: "circus-contact/circus-artists.html",
-                3: "circus-contact/circus-gigs.html",
-                4: "circus-contact/circus-join.html",
-                5: "circus-contact/circus-contact.html"
-            };
-            $scope.page = function() {
-                return $scope.pages[$scope.selectedIndex];
-            }
-
-        }])
-        .run(function($rootScope, $templateCache) {
-                $templateCache.removeAll();
-                console.log("All removed")
-        });
-
-</script>
+<script src="index.js"></script>
+<script src="circus-contact/circus-contact.js"></script>
+<script src="masonry/masonry.pkgd.min.js"></script>
+<script src="circus-artists/circus-artists.js"></script>
 </body>
 </html>
 

@@ -1,0 +1,80 @@
+.performer {
+    width: 340px;
+    height: 500px;
+    background: none repeat scroll 0% 0% #45b797;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.performer .heading {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 100px;
+    width: 100%;
+}
+
+.performer .performerinfo {
+    float: left
+}
+.performer .heading img {
+    float: right;
+    width: 70px;
+    height: 70px;
+    margin: 15px;
+}
+
+.performer .picture {
+    height: 350px;
+    background-color: #45b797;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.performer .skills {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.performer .skills ul {
+    margin: 0;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.performer .hire {
+    height: 50px;
+}
+.performer .hirebutton {
+    height: 100%;
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+}
+
+.performer .hirebutton :hover {
+    background-color: #FFD087;
+}
+
+.performer .hirebutton.focus {
+    background-color: #FFD087;
+}
+
+
+.performer .picture .leftbutton {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+.performer .picture .leftbutton:hover {
+    background: rgba(40, 40, 40, 0.25);
+}
+
+
+.performer .picture .rightbutton {
+    height: 100%;
+    width: 50%;
+    float: right;
+}
+
+.performer .picture .rightbutton:hover {
+    background: rgba(40, 40, 40, 0.25);
+}
