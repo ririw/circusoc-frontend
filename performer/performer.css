@@ -1,62 +1,26 @@
 .performer {
-    width: 340px;
+    width: 334px;
     height: 500px;
-    background: none repeat scroll 0% 0% #45b797;
-    border-radius: 5px;
-    margin: 5px;
+    position: relative;
+    font-family: "RobotoDraft","Helvetica Neue",Helvetica,Arial
 }
 
 .performer .heading {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    height: 100px;
+    height: 20%;
     width: 100%;
+    padding: 16px;
 }
 
-.performer .performerinfo {
-    float: left
-}
-.performer .heading img {
-    float: right;
-    width: 70px;
-    height: 70px;
-    margin: 15px;
+.performer .heading h4 {
+    margin: 0;
 }
 
 .performer .picture {
-    height: 350px;
+    height: 80%;
     background-color: #45b797;
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-.performer .skills {
-    margin-left: 10px;
-    margin-top: 10px;
-}
-.performer .skills ul {
-    margin: 0;
-    list-style: none;
-    padding-left: 20px;
-}
-
-.performer .hire {
-    height: 50px;
-}
-.performer .hirebutton {
-    height: 100%;
-    width: 100%;
-    border-radius: 0 0 5px 5px;
-}
-
-.performer .hirebutton :hover {
-    background-color: #FFD087;
-}
-
-.performer .hirebutton.focus {
-    background-color: #FFD087;
-}
-
 
 .performer .picture .leftbutton {
     height: 100%;
@@ -64,17 +28,29 @@
     float: left;
 }
 
-.performer .picture .leftbutton:hover {
-    background: rgba(40, 40, 40, 0.25);
-}
-
-
 .performer .picture .rightbutton {
     height: 100%;
     width: 50%;
     float: right;
 }
 
-.performer .picture .rightbutton:hover {
-    background: rgba(40, 40, 40, 0.25);
+.performer .hirebutton {
+    /* background-color: #5a51ff; */
+    background-color: #48cdab;
+    padding: 20px 15px;
+    font-weight: bold;
+    border-radius: 50px;
+    color: #eaeaea;
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    -webkit-box-shadow: 0px 10px 15px 0px rgba(50, 50, 50, 0.50);
+    -moz-box-shadow:    0px 10px 15px 0px rgba(50, 50, 50, 0.50);
+    box-shadow:         0px 10px 15px 0px rgba(50, 50, 50, 0.50);
+}
+
+.performer .hirebutton:hover {
+    color: #ffffff;
+    bottom: 45px;
+    cursor: pointer;
 }

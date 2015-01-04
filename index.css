@@ -60,3 +60,13 @@ md-button a {
     color: white;
     text-decoration: none;
 }
+
+.skill-chip {
+    padding: 5px 10px;
+    background-color: #cbcbcb;
+    border-radius: 25px;
+    color: #424242;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
