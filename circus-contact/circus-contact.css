@@ -4,20 +4,3 @@
     margin-left: auto;
     margin-right: auto;
 }
-.circus-contact .circus-contact-hirebutton {
-    width: 150px;
-    height: 40px;
-    background-color: #fbb03b;
-    color: white;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.circus-contact .circus-contact-hirebutton :hover {
-    background-color: #FFD087;
-}
-
-.circus-contact .circus-contact-hirebutton.focus {
-    background-color: #FFD087;
-}
-

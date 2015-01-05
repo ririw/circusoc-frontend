@@ -5,7 +5,7 @@ app.directive('performerCard', ['$http', function($http) {
         scope: {
             performerId: '@'
         },
-        controller: function($scope, $element, $attrs, $transclude, $http) {
+        controller: function($scope, $element, $attrs, $transclude, $http, $location) {
             $scope.image_ix = 0;
             $scope.current_image = function(){
                 if ($scope.performer)
@@ -24,6 +24,9 @@ app.directive('performerCard', ['$http', function($http) {
             $scope.prev_image = function(){
                 $scope.image_ix = $scope.image_ix - 1;
                 if ($scope.image_ix < 0) $scope.image_ix = $scope.performer.other_pictures.length - 1;
+            };
+            $scope.gohire = function() {
+                $location.path("/hire");
             };
         },
         link: function (scope, element, attrs) {
