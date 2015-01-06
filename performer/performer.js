@@ -30,7 +30,7 @@ app.directive('performerCard', ['$http', function($http) {
             };
         },
         link: function (scope, element, attrs) {
-            $http.get('http://localhost:8080/performer/' + scope.performerId)
+            $http.get('http://localhost.com:8080/performer/' + scope.performerId)
                 .success(function (data, status) {
                     scope.performer = Performer(data);
                 })

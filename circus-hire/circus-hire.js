@@ -1,5 +1,5 @@
-app.controller("HireController", ['$scope', '$location', '$http', '$mdToast', '$timeout',
-    function ($scope, $location, $http, $mdToast, $timeout) {
+app.controller("HireController", ['$scope', '$location', '$http', '$mdToast',
+    function ($scope, $location, $http, $mdToast) {
     $scope.skills = [
         {name: 'acrobalance or acrobatics', price: 800},
         {name: 'fire twirling', price: 500},
@@ -34,7 +34,6 @@ app.controller("HireController", ['$scope', '$location', '$http', '$mdToast', '$
         return price;
     };
 
-
     $scope.toggleSelection = function(name) {
         if (name in $scope.hire_request.skills) {
             delete $scope.hire_request.skills[name];
@@ -44,7 +43,6 @@ app.controller("HireController", ['$scope', '$location', '$http', '$mdToast', '$
     };
 
     $scope.gohire = function() {
-        console.log($scope.hireform.$valid);
         if ($scope.hireform.$valid) {
             $scope.send_hire_request()
         } else {
@@ -66,25 +64,25 @@ app.controller("HireController", ['$scope', '$location', '$http', '$mdToast', '$
                 request.skills.push(skill);
             }
         }
-        $http.put("http://localhost:8080/hire", request)
+        $http.put("http://localhost.com:8080/hire", request)
         .success(
             function(data, status){
-                var toast =$mdToast.simple()
+                var toast = $mdToast.simple()
                     .content('Thanks! We\'ll get back to you soon')
                     .position('bottom')
                     .action('Meet the performers')
-                    .hideDelay(5000);
+                    .hideDelay(0);
                 $mdToast.show(toast).then(function() {
                     $location.path("/artists");
                 });
             }
         ).error(
             function(data, status) {
-                var toast =$mdToast.simple()
+                var toast = $mdToast.simple()
                     .content('Something went wrong.')
                     .position('bottom')
                     .action('Contact us here')
-                    .hideDelay(5000);
+                    .hideDelay(0);
                 $mdToast.show(toast).then(function() {
                     $location.path("/contact");
                 });
