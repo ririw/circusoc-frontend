@@ -17,12 +17,15 @@ app.config(['$routeProvider',
             when('/login', {
                 templateUrl: 'circus-login/circus-login.html'
             }).
+            when('/join', {
+                templateUrl: 'circus-join/circus-join.html'
+            }).
             otherwise({
                 redirectTo: '/'
             });
     }
 ]);
-app.controller("TabNav", ['$scope', '$location', function ($scope, $location) {
+app.controller("TabNav", ['$scope', '$location', '$route', function ($scope, $location, $route) {
     $scope.tabs = [
         {title: 'Home', location: '/'},
         {title: 'Hire', location: '/hire'},
@@ -39,6 +42,11 @@ app.controller("TabNav", ['$scope', '$location', function ($scope, $location) {
      */
     $scope.selectedIndex = 0;
 
+    $scope.setlocation = function(selected){
+        $location.path(selected.location);
+        set_by_location()
+    };
+
     set_by_location = function() {
         $scope.selectedIndex = -1;
         for (i = 0; i < $scope.tabs.length; i++) {
@@ -47,10 +55,7 @@ app.controller("TabNav", ['$scope', '$location', function ($scope, $location) {
             }
         }
     };
-
-    $scope.setlocation = function(selected){
-        $location.path(selected.location)
-    };
+    set_by_location();
 
     $scope.$on('$routeChangeSuccess', function(event, data) {
         set_by_location()

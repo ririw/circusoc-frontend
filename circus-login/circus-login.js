@@ -59,8 +59,9 @@ app.controller("LoginController", ['$scope', '$location', '$http', '$mdToast',
                     $mdToast.show(toast);
                     $location.path('/');
                 }).error(function(data, status) {
+                    var error = data.hasOwnProperty('error') ? data.error : "other error";
                     var toast = $mdToast.simple()
-                        .content("something went wrong.")
+                        .content("something went wrong: " + error)
                         .position('bottom')
                         .hideDelay(0);
                     $mdToast.show(toast);

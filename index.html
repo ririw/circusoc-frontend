@@ -12,7 +12,7 @@
 <div ng-controller="TabNav">
     <md-tabs md-selected="selectedIndex" center class="circus-yellow" >
         <md-tab ng-repeat="tab in tabs"
-                md-on-select="setlocation(tab)"
+                ng-click="setlocation(tab)"
                 label="{{tab.title}}">
         </md-tab>
     </md-tabs>
@@ -32,6 +32,7 @@
 <script src="circus-hire/circus-hire.js"></script>
 <script src="performer/performer.js"></script>
 <script src="circus-login/circus-login.js"></script>
+<script src="circus-join/circus-join.js"></script>
 </body>
 </html>
 
