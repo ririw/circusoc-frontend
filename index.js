@@ -30,7 +30,7 @@ app.controller("TabNav", ['$scope', '$location', '$route', function ($scope, $lo
         {title: 'Home', location: '/'},
         {title: 'Hire', location: '/hire'},
         {title: 'Artists', location: '/artists'},
-        {title: 'Contact', location: '/contact'},
+        {title: 'Contact', location: '/contact'}
     ];
     /*
     When we initialize the tab bar, we need to set the selectedIndex
