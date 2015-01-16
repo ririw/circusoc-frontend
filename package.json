@@ -11,7 +11,10 @@
     "gulp": "~3.8.10",
     "gulp-closure-compiler": "~0.2.14",
     "gulp-concat": "~3.4.3",
-    "gulp-compressor": "~0.1.0"
+    "gulp-compressor": "~0.1.0",
+    "gulp-inline-source": "~1.1.0",
+    "gulp-rename": "~1.2.0",
+    "gulp-minify-html": "~0.1.8"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

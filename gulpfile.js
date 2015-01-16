@@ -1,7 +1,10 @@
 var gulp = require('gulp'),
     closureCompiler = require('gulp-closure-compiler'),
     concat = require('gulp-concat'),
+    rename = require('gulp-rename'),
+    minifyHTML = require('gulp-minify-html'),
     compressor = require('gulp-compressor'),
+    inlinesource = require('gulp-inline-source'),
     minified_files = [
         'bower_components/angular/angular.min.js',
         'bower_components/angular-route/angular-route.min.js',
@@ -33,7 +36,7 @@ var gulp = require('gulp'),
         "circus-join/circus-join.css",
         "circus-login/circus-login.css"
     ],
-    devmode = true;
+    devmode = false;
 
 if (devmode) {
     gulp.task('compress', function () {
@@ -43,8 +46,13 @@ if (devmode) {
     });
     gulp.task('css-minify', function() {
         gulp.src(css_files)
-            .pipe(concat('all.min.css'))
             .pipe(gulp.dest('build/'))
+    });
+
+    gulp.task('inline', ['concat', 'css-minify'], function() {
+        gulp.src('index.max.html')
+            .pipe(rename('index.html'))
+            .pipe(gulp.dest('.'));
     });
 } else {
     gulp.task('compress', function () {
@@ -58,9 +66,16 @@ if (devmode) {
 
     gulp.task('css-minify', function() {
         gulp.src(css_files)
-            .pipe(concat('all.min.css'))
             .pipe(compressor())
             .pipe(gulp.dest('build/'))
+    });
+
+    gulp.task('inline', ['concat', 'css-minify'], function() {
+        gulp.src('index.max.html')
+            .pipe(rename('index.html'))
+            .pipe(inlinesource())
+            .pipe(minifyHTML({comments:true,spare:true}))
+            .pipe(gulp.dest('.'));
     });
 }
 
@@ -71,11 +86,13 @@ gulp.task('concat', ['compress'], function() {
         .pipe(gulp.dest('build/'))
 });
 
+
 gulp.task('watch', function(){
    gulp.watch(minified_files, ['compress']);
+   gulp.watch('index.max.html', ['inline']);
    gulp.watch(concat_files, ['concat']);
    gulp.watch(css_files, ['css-minify']);
 });
 
-//gulp.task('default', ['concat', 'compress', 'css-minify']);
-gulp.task('default', ['concat', 'compress', 'css-minify', 'watch']);
+gulp.task('default', ['inline']);
+//gulp.task('default', ['concat', 'compress', 'css-minify', 'watch']);
