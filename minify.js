@@ -1,9 +1,16 @@
 var compressor = require('node-minify');
 
+var js_type = 'gcc';
+var css_type = 'yui-css';
+if (true) {
+    var js_type = 'no-compress';
+    var css_type = 'no-compress';
+}
+
+
 // Using Google Closure
 new compressor.minify({
-    type: 'gcc',
-    //type: 'no-compress',
+    type: js_type,
     fileIn: [
         'bower_components/angular/angular.min.js',
         'bower_components/angular-route/angular-route.min.js',
@@ -31,31 +38,9 @@ new compressor.minify({
     }
 });
 
-function with_minified_libs(){
-    new compressor.minify({
-        // type: 'no-compress',
-        type: 'gcc',
-        fileIn: [
-            'bower_components/angular/angular.min.js',
-            'bower_components/angular-route/angular-route.min.js',
-            'bower_components/angular-aria/angular-aria.min.js',
-            'bower_components/angular-animate/angular-animate.min.js',
-            'bower_components/hammerjs/hammer.min.js',
-            'bower_components/angular-material/angular-material.min.js',
-            'masonry/masonry.pkgd.min.js',
-            'circ.min.js'
-        ],
-        fileOut: 'all.min.js',
-        callback: function(err, min){
-            if (err) console.error(err);
-            else console.log("Successfully minifed all js");
-        }
-    })}
-
 // Using YUI Compressor for CSS
 new compressor.minify({
-    type: 'yui-css',
-    //type: 'no-compress',
+    type: css_type,
     fileIn: [
         "bower_components/angular-material/angular-material.css",
         "performer/performer.css",
