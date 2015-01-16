@@ -9,13 +9,14 @@ var gulp = require('gulp'),
         'bower_components/angular-animate/angular-animate.min.js',
         'bower_components/angular-material/angular-material.min.js',
         'index.js',
+        'api_service/api_service.js',
         'performer/performer.js',
         'circus-main/circus-main.js',
         'circus-login/circus-login.js',
         'circus-join/circus-join.js',
         'circus-hire/circus-hire.js',
         'circus-contact/circus-contact.js',
-        'circus-artists/circus-artists.js'
+        'circus-artists/circus-artists.js',
     ],
     concat_files = [
         'masonry/masonry.pkgd.min.js',
@@ -32,9 +33,9 @@ var gulp = require('gulp'),
         "circus-join/circus-join.css",
         "circus-login/circus-login.css"
     ],
-    quick = false;
+    devmode = true;
 
-if (quick) {
+if (devmode) {
     gulp.task('compress', function () {
         gulp.src(minified_files)
             .pipe(concat('intermediate.js'))
@@ -77,4 +78,4 @@ gulp.task('watch', function(){
 });
 
 //gulp.task('default', ['concat', 'compress', 'css-minify']);
-gulp.task('default', ['watch']);
+gulp.task('default', ['concat', 'compress', 'css-minify', 'watch']);

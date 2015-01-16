@@ -1,5 +1,14 @@
-app.controller("JoinController", ['$scope', '$location', '$http', '$mdToast',
-    function($scope, $location, $http, $mdToast) {
+app.controller("JoinController", ['$scope', '$location', '$http', '$mdToast', 'circ_login',
+    function($scope, $location, $http, $mdToast, circ_login) {
+        if (!circ_login.loggedin()) {
+            toast = $mdToast.simple()
+                .content("Please log in.")
+                .position('bottom')
+                .hideDelay(2500);
+            $mdToast.show(toast);
+            $location.path('/login');
+            return;
+        }
         $scope.name = null;
         $scope.email = null;
         $scope.student_number = null;
@@ -23,8 +32,7 @@ app.controller("JoinController", ['$scope', '$location', '$http', '$mdToast',
                 $mdToast.show(toast);
                 return;
             }
-            var token = localStorage.getItem('token');
-            if (token == 'undefined') {
+            if (!circ_login.loggedin) {
                 toast = $mdToast.simple()
                     .content("Please log in.")
                     .position('bottom')
@@ -33,6 +41,7 @@ app.controller("JoinController", ['$scope', '$location', '$http', '$mdToast',
                 $location.path('/login');
                 return;
             }
+            var token = circ_login.get_token();
             var request = {
                 name: $scope.name,
                 email: $scope.email,
