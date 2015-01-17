@@ -1,7 +1,7 @@
 app.directive('performerCard', ['$http', function($http) {
     return {
         restrict: 'AE',
-        templateUrl: 'performer/performer.html',
+        templateUrl: 'performer.html',
         scope: {
             performerId: '@'
         },

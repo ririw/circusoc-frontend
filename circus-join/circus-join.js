@@ -57,6 +57,7 @@ app.controller("JoinController", ['$scope', '$location', '$http', '$mdToast', 'c
                         .position('bottom')
                         .hideDelay(2500);
                     $mdToast.show(toast);
+                    // TODO: RESET THE FORM.
                 })
                 .error(function(data, status) {
                     var reason = data.hasOwnProperty('reason') ? data.reason : "other error";

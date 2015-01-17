@@ -6,11 +6,9 @@ var gulp = require('gulp'),
     compressor = require('gulp-compressor'),
     inlinesource = require('gulp-inline-source'),
     minified_files = [
-        'bower_components/angular/angular.min.js',
-        'bower_components/angular-route/angular-route.min.js',
-        'bower_components/angular-aria/angular-aria.min.js',
-        'bower_components/angular-animate/angular-animate.min.js',
-        'bower_components/angular-material/angular-material.min.js',
+        'bower_components/angular-route/angular-route.js',
+        'bower_components/angular-aria/angular-aria.js',
+        'bower_components/angular-animate/angular-animate.js',
         'index.js',
         'api_service/api_service.js',
         'performer/performer.js',
@@ -21,10 +19,12 @@ var gulp = require('gulp'),
         'circus-contact/circus-contact.js',
         'circus-artists/circus-artists.js',
     ],
-    concat_files = [
-        'masonry/masonry.pkgd.min.js',
+    copy_files = [
+        'bower_components/angular/angular.min.js',
+        'bower_components/angular-material/angular-material.min.js',
+        'bower_components/masonry/dist/masonry.pkgd.min.js',
         'bower_components/hammerjs/hammer.min.js',
-        'build/intermediate.js'
+        'bower_components/angular/angular.min.js.map'
     ],
     css_files = [
         "bower_components/angular-material/angular-material.css",
@@ -37,7 +37,7 @@ var gulp = require('gulp'),
         "circus-login/circus-login.css"
     ],
     html_files = [
-        'index.max.html',
+        'index.html',
         'circus-artists/circus-artists.html',
         'circus-contact/circus-contact.html',
         'circus-hire/circus-hire.html',
@@ -46,13 +46,11 @@ var gulp = require('gulp'),
         'circus-main/circus-main.html',
         'performer/performer.html'
     ],
-    devmode = false;
-
-
+    all_files = minified_files + copy_files + css_files + html_files,
+    devmode = true;
 
 var js_compressor = closureCompiler({
         compilerPath: 'bower_components/closure-compiler/compiler.jar',
-        fileName: 'intermediate.js',
         compilerFlags: {
             compilation_level: 'ADVANCED_OPTIMIZATIONS'
         }
@@ -60,10 +58,12 @@ var js_compressor = closureCompiler({
 
 
 // JS COMPRESSION
-if (devmode)
+if (true)
     gulp.task('compress-js', function() {
         gulp.src(minified_files)
-            .pipe(gulp.dest('build/'))
+            .pipe(gulp.dest('build/'));
+        gulp.src(minified_files)
+            .pipe(gulp.dest('build/build/')); // These are dev-mode copies
     });
 else
     gulp.task('compress-js', function() {
@@ -72,25 +72,25 @@ else
             .pipe(gulp.dest('build/'))
     });
 
-// JS MERGE
-if (devmode)
-    gulp.task('merge-js', ['compress-js'], function() {
-        gulp.src(concat_files)
-            .pipe(gulp.dest('build/'))
-    });
-else
-    gulp.task('merge-js', ['compress-js'], function() {
-        gulp.src(concat_files)
-            .pipe(concat('all.min.js'))
-            .pipe(gulp.dest('build/'))
-    });
+gulp.task('copy-js', function() {
+    gulp.src(copy_files)
+        .pipe(gulp.dest('build/')); // These are dev-mode copies
+    gulp.src(copy_files)
+        .pipe(gulp.dest('build/build/')); // These are dev-mode copies
+});
+
+// Assets
+gulp.task('assets', function(){
+    gulp.src('img/*')
+        .pipe(gulp.dest('build/img'))
+});
 
 
 // CSS COMPRESSION
 if (devmode)
     gulp.task('compress-css', [], function() {
         gulp.src(css_files)
-            .pipe(gulp.dest('build/'))
+            .pipe(gulp.dest('build/build/'))
     });
 else
     gulp.task('compress-css', function() {
@@ -101,12 +101,12 @@ else
 
 // HTML INLINING & MINIFICATION
 if (devmode)
-    gulp.task('inline-html', ['merge-js', 'compress-css'], function() {
+    gulp.task('inline-html', ['copy-js', 'compress-js', 'compress-css', 'assets'], function() {
         gulp.src(html_files)
             .pipe(gulp.dest('build/'));
     });
 else
-    gulp.task('inline-html', ['merge-js', 'compress-css'], function() {
+    gulp.task('inline-html', ['copy-js', 'compress-js', 'compress-css', 'assets'], function() {
         gulp.src(html_files)
             .pipe(inlinesource())
             .pipe(minifyHTML({empty: true}))
@@ -114,85 +114,10 @@ else
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if (devmode) {
-    gulp.task('compress', [], function () {
-        gulp.src(minified_files)
-            .pipe(concat('intermediate.js'))
-            .pipe(gulp.dest('build/'))
-    });
-
-    gulp.task('css-minify', [], function() {
-        gulp.src(css_files)
-            .pipe(gulp.dest('build/'))
-    });
-
-    gulp.task('concat', ['compress'], function() {
-        gulp.src(concat_files)
-            .pipe(concat('all.min.js'))
-            .pipe(gulp.dest('build/'))
-    });
-
-    gulp.task('inline', ['concat', 'css-minify'], function() {
-        gulp.src('index.max.html')
-            .pipe(rename('index.html'))
-            .pipe(gulp.dest('.'));
-    });
-} else {
-    gulp.task('compress', function () {
-        gulp.src(minified_files)
-            .pipe(closureCompiler({
-                compilerPath: 'bower_components/closure-compiler/compiler.jar',
-                fileName: 'intermediate.js',
-                compilerFlags: {
-                    compilation_level: 'ADVANCED_OPTIMIZATIONS'
-                }
-            }))
-            .pipe(gulp.dest('build/'));
-    });
-
-
-    gulp.task('css-minify', function() {
-        gulp.src(css_files)
-            .pipe(compressor())
-            .pipe(gulp.dest('build/'))
-    });
-
-    gulp.task('inline', ['compress', 'concat', 'css-minify'], function() {
-        gulp.src('index.max.html')
-            .pipe(rename('index.html'))
-            .pipe(inlinesource())
-            .pipe(minifyHTML({empty: true}))
-            .pipe(gulp.dest('.'));
-    });
-}
-
-
-gulp.task('concat', ['compress'], function() {
-    gulp.src(concat_files)
-        .pipe(concat('all.min.js'))
-        .pipe(gulp.dest('build/'))
-});
-
 gulp.task('watch', function(){
-   gulp.watch(minified_files, ['compress']);
-   gulp.watch('index.max.html', ['inline']);
-   gulp.watch(concat_files, ['concat']);
-   gulp.watch(css_files, ['css-minify']);
+   gulp.watch(all_files, ['inline-html']);
 });
 
-gulp.task('default', ['inline']);
+gulp.task('default', ['inline-html']);
+// gulp.task('default', ['compress-js']);
 // gulp.task('default', ['inline', 'watch']);

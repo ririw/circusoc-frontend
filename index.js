@@ -3,22 +3,22 @@ app.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: 'circus-main/circus-main.html'
+                templateUrl: 'circus-main.html'
             }).
             when('/artists', {
-                templateUrl: 'circus-artists/circus-artists.html'
+                templateUrl: 'circus-artists.html'
             }).
             when('/contact', {
-                templateUrl: 'circus-contact/circus-contact.html'
+                templateUrl: 'circus-contact.html'
             }).
             when('/hire', {
-                templateUrl: 'circus-hire/circus-hire.html'
+                templateUrl: 'circus-hire.html'
             }).
             when('/login', {
-                templateUrl: 'circus-login/circus-login.html'
+                templateUrl: 'circus-login.html'
             }).
             when('/join', {
-                templateUrl: 'circus-join/circus-join.html'
+                templateUrl: 'circus-join.html'
             }).
             otherwise({
                 redirectTo: '/'
