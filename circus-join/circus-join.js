@@ -1,5 +1,5 @@
-app.controller("JoinController", ['$scope', '$location', '$http', '$mdToast', 'circ_login',
-    function($scope, $location, $http, $mdToast, circ_login) {
+app.controller("JoinController", ['$scope', '$location', '$http', '$mdToast', 'circ_login', 'config',
+    function($scope, $location, $http, $mdToast, circ_login, config) {
         if (!circ_login.loggedin()) {
             toast = $mdToast.simple()
                 .content("Please log in.")
@@ -50,7 +50,7 @@ app.controller("JoinController", ['$scope', '$location', '$http', '$mdToast', 'c
                 subscribed: $scope.subscribed
             };
 
-            $http.put("http://localhost.com:8080/member?tok=" + token, request)
+            $http.put(config.base_url + "/member?tok=" + token, request)
                 .success(function(data, status) {
                     var toast = $mdToast.simple()
                         .content("user added ✓")

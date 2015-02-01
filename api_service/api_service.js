@@ -1,6 +1,6 @@
 app.factory('circ_login', [
-    '$http', '$mdToast', '$location',
-    function($http, $mdToast, $location) {
+    '$http', '$mdToast', '$location', 'config',
+    function($http, $mdToast, $location, config) {
         var loginservice = {};
 
         if (localStorage.getItem('token') == null) localStorage.setItem('token', '');
@@ -9,7 +9,7 @@ app.factory('circ_login', [
 
         loginservice.login_check = function() {
             var token = localStorage.getItem('token');
-            $http.get("http://localhost.com:8080/authenticated?tok=" + token)
+            $http.get(config.base_url + "/authenticated?tok=" + token)
                 .success(function(data, status) {
                 })
                 .error(function(data, status){
@@ -27,7 +27,7 @@ app.factory('circ_login', [
                 username: username,
                 password: password
             };
-            $http.post("http://localhost.com:8080/login", request)
+            $http.post(config.base_url + "/login", request)
                 .success(function(data, status) {
                     localStorage.setItem('token', data.token);
                     var toast = $mdToast.simple()
@@ -53,7 +53,7 @@ app.factory('circ_login', [
 
         loginservice.logout = function() {
             var token = localStorage.getItem('token');
-            $http.post("http://localhost.com:8080/logout?tok=" + token, {})
+            $http.post(config.base_url + "/logout?tok=" + token, {})
                 .success(function(data, status) {
                     localStorage.setItem('token', data.token);
                     var toast = $mdToast.simple()

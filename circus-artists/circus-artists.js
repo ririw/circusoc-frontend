@@ -1,6 +1,6 @@
-app.controller("ArtistsController", ['$scope', '$http', '$timeout',
-    function ($scope, $http, $timeout) {
-        $http.get('http://localhost.com:8080/performers')
+app.controller("ArtistsController", ['$scope', '$http', '$timeout', 'config',
+    function ($scope, $http, $timeout, config) {
+        $http.get(config.base_url + '/performers')
             .success(function(data, status){
                 $scope.artists = data;
                 $timeout(function () {

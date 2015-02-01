@@ -1,11 +1,12 @@
-app.directive('performerCard', ['$http', function($http) {
+app.directive('performerCard', ['$http', 'config', function($http, config) {
     return {
         restrict: 'AE',
         templateUrl: 'performer/performer.html',
         scope: {
             performerId: '@'
         },
-        controller: ['$scope', '$element', '$attrs', '$transclude', '$http', '$location', function($scope, $element, $attrs, $transclude, $http, $location) {
+        controller: ['$scope', '$element', '$attrs', '$transclude', '$http', '$location',
+            function($scope, $element, $attrs, $transclude, $http, $location) {
             $scope.image_ix = 0;
             $scope.current_image = function(){
                 if ($scope.performer)
@@ -30,7 +31,7 @@ app.directive('performerCard', ['$http', function($http) {
             };
         }],
         link: function (scope, element, attrs) {
-            $http.get('http://localhost.com:8080/performer/' + scope.performerId)
+            $http.get(config.base_url + '/performer/' + scope.performerId)
                 .success(function (data, status) {
                     scope.performer = Performer(data);
                 })

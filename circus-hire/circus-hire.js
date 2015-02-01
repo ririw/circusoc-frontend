@@ -1,5 +1,5 @@
-app.controller("HireController", ['$scope', '$location', '$http', '$mdToast',
-    function ($scope, $location, $http, $mdToast) {
+app.controller("HireController", ['$scope', '$location', '$http', '$mdToast', 'config',
+    function ($scope, $location, $http, $mdToast, config) {
     $scope.skills = [
         {name: 'acrobalance or acrobatics', price: 800},
         {name: 'fire twirling', price: 500},
@@ -64,7 +64,7 @@ app.controller("HireController", ['$scope', '$location', '$http', '$mdToast',
                 request.skills.push(skill);
             }
         }
-        $http.put("http://localhost.com:8080/hire", request)
+        $http.put(config.base_url + "/hire", request)
         .success(
             function(data, status){
                 var toast = $mdToast.simple()

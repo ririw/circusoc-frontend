@@ -4,6 +4,14 @@ Minification process for testing:
     * Copy all CSS files, preserving structure
     * Include the non-minified versions of the include files,
  */
+
+var program = require('commander');
+program
+    .version("1.0")
+    .option('-t, --test', 'use test mode (do not compress & minify')
+    .option('-w, --watch', 'watch for changes')
+    .parse(process.argv);
+
 var gulp = require('gulp'),
     closureCompiler = require('gulp-closure-compiler'),
     concat = require('gulp-concat'),
@@ -54,7 +62,8 @@ var gulp = require('gulp'),
         'performer/performer.html'
     ],
     all_files = minified_files.concat(copy_files).concat(css_files).concat(html_files),
-    devmode = true;
+    devmode = program.test,
+    config_target = 'local';
 
 var js_compressor = closureCompiler({
     compilerPath: 'bower_components/closure-compiler/compiler.jar',
@@ -79,6 +88,21 @@ else
             .pipe(gulp.dest('build/'))
     });
 
+config_source = null;
+switch (config_target) {
+    case 'local':
+        config_source = "config/local.js";
+        break;
+    case 'deployment':
+        config_source = "config/deployment.js";
+        break;
+}
+
+gulp.task('configure', function() {
+    return gulp.src(config_source, {base: "."})
+        .pipe(rename("config/config.js"))
+        .pipe(gulp.dest('build'))
+});
 
 if (devmode)
     // In dev-mode, just copy in the files
@@ -117,13 +141,13 @@ else
 
 // HTML INLINING & MINIFICATION
 if (devmode)
-    gulp.task('inline-html', ['compress-js', 'concatenate-js', 'compress-css', 'assets'], function() {
+    gulp.task('inline-html', ['compress-js', 'concatenate-js', 'configure', 'compress-css', 'assets'], function() {
         return gulp.src(html_files, {base: "."})
             .pipe(preprocess({context: {NODE_ENV: 'dev'}}))
             .pipe(gulp.dest('build/'));
     });
 else
-    gulp.task('inline-html', ['compress-js', 'concatenate-js', 'compress-css', 'assets'], function() {
+    gulp.task('inline-html', ['compress-js', 'concatenate-js', 'configure', 'compress-css', 'assets'], function() {
         return gulp.src(html_files, {base: "."})
             .pipe(preprocess({context: {NODE_ENV: 'prod'}}))
             .pipe(inlinesource())
@@ -138,4 +162,8 @@ gulp.task('watch', function(){
 
 // gulp.task('default', ['inline-html', 'watch']);
 // gulp.task('default', ['compress-js']);
-gulp.task('default', ['inline-html']);
+if (program.watch) {
+    gulp.task('default', ['inline-html', 'watch']);
+} else {
+    gulp.task('default', ['inline-html']);
+}
